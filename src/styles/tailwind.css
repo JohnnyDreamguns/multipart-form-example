@@ -623,6 +623,18 @@ video {
   }
 }
 
+h1 {
+  font-size: 1.25rem;
+}
+
+.form-field {
+  border-style: solid;
+  border-width: 1px;
+  border-color: #cbd5e0;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -13963,10 +13975,6 @@ video {
 
 .duration-1000 {
   transition-duration: 1000ms;
-}
-
-.test {
-  display: grid;
 }
 
 @media (min-width: 640px) {

@@ -1,10 +1,14 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './styles/tailwind.css';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
 import App from './App';
-import * as serviceWorker from './serviceWorker';
 import store from './store';
+import './styles/tailwind.css';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const Root = () => (
+  <Provider store={store}>
+    <App />
+  </Provider>
+);
 
-serviceWorker.unregister();
+render(<Root />, document.getElementById('root'));
