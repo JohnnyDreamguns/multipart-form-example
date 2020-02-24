@@ -1,19 +1,17 @@
 import React from 'react';
 import ContactDetailsContainer from '../containers/ContactDetailsContainer';
 import LoginDetailsContainer from '../containers/LoginDetailsContainer';
+import ResultsContainer from '../containers/ResultsContainer';
 
 interface Props {
   step: number;
-  nextStep: any;
 }
 
-const MasterForm = ({ step, nextStep }: Props) => (
+const MasterForm = ({ step }: Props) => (
   <div className="p-5">
     {step === 1 && <ContactDetailsContainer />}
     {step === 2 && <LoginDetailsContainer />}
-    <button className="border px-3 rounded" onClick={nextStep}>
-      Next
-    </button>
+    {step === 3 && <ResultsContainer />}
   </div>
 );
 

@@ -4,14 +4,16 @@ import Label from './Label';
 
 interface Props {
   fields: { [fieldName: string]: string };
-  onChange?: (e: SyntheticEvent) => void;
   className?: string;
+  onChange?: (e: SyntheticEvent) => void;
+  nextStep: () => void;
 }
 
-const ContactDetails = ({ fields, onChange, ...props }: Props) => (
+const ContactDetails = ({ fields, onChange, nextStep, ...props }: Props) => (
   <div {...props}>
     <h1 className="mb-3">Contact details</h1>
-    <form className="flex flex-col max-w-xl">
+
+    <form onSubmit={nextStep} className="flex flex-col max-w-md">
       <Label htmlFor="firstName">First Name</Label>
       <FormField
         type="text"
@@ -31,6 +33,10 @@ const ContactDetails = ({ fields, onChange, ...props }: Props) => (
         onChange={onChange}
         className="mb-5"
       />
+
+      <button className="btn self-end" type="submit">
+        Save
+      </button>
     </form>
   </div>
 );

@@ -8,11 +8,9 @@ const useGlobal = () => {
 
   const step: number = useSelector((state: any) => state.global.step);
 
-  const nextStep = useCallback(() => dispatch(setStep(step + 1)), [
-    dispatch,
-    setStep,
-    step
-  ]);
+  const nextStep = useCallback(() => {
+    dispatch(setStep(step + 1));
+  }, [dispatch, setStep, step]);
 
   const exported = {
     step,

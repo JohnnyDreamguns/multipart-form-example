@@ -4,22 +4,24 @@ import Label from './Label';
 
 interface Props {
   fields: { [fieldName: string]: string };
-  onChange: (e: SyntheticEvent) => void;
   className?: string;
+  onChange: (e: SyntheticEvent) => void;
+  nextStep: () => void;
 }
 
-const LoginDetails = ({ fields, onChange, ...props }: Props) => (
+const LoginDetails = ({ fields, onChange, nextStep, ...props }: Props) => (
   <div {...props}>
     <h1 className="mb-3">Login details</h1>
-    <form className="flex flex-col max-w-xl">
-      <Label htmlFor="firstName">Email address</Label>
+
+    <form onSubmit={nextStep} className="flex flex-col max-w-md">
+      <Label htmlFor="email">Email address</Label>
       <FormField
         type="text"
         name="email"
         id="email"
         value={fields.email}
         onChange={onChange}
-        className="mb-5 mr-5"
+        className="mb-5"
       />
 
       <Label htmlFor="password">Password</Label>
@@ -29,8 +31,12 @@ const LoginDetails = ({ fields, onChange, ...props }: Props) => (
         id="password"
         value={fields.password}
         onChange={onChange}
-        className="mb-5 mr-5"
+        className="mb-5"
       />
+
+      <button className="btn self-end" type="submit">
+        Save
+      </button>
     </form>
   </div>
 );

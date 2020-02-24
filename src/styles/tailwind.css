@@ -625,13 +625,25 @@ video {
 
 h1 {
   font-size: 1.25rem;
+  color: #38a169;
 }
 
 .form-field {
   border-style: solid;
   border-width: 1px;
-  border-color: #cbd5e0;
+  border-color: #e2e8f0;
   padding: 0.25rem;
+  border-radius: 0.25rem;
+  background-color: #edf2f7;
+}
+
+.btn {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  background-color: #48bb78;
+  color: #fff;
   border-radius: 0.25rem;
 }
 
