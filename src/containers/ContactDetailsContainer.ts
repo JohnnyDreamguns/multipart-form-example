@@ -10,16 +10,22 @@ interface Props {
 const ContactDetailsContainer = ({ className }: Props) => {
   const { nextStep } = useGlobal();
 
-  const { fields, onChange } = useForm('contactDetails', {
+  const { fields, onChange, saveToStore } = useForm('contactDetails', {
     firstName: '',
     lastName: ''
   });
+
+  const onSubmit = (e: any) => {
+    saveToStore();
+    nextStep();
+    e.preventDefault();
+  };
 
   const props = {
     fields,
     onChange,
     className,
-    nextStep
+    onSubmit
   };
 
   return React.createElement(ContactDetails, props);

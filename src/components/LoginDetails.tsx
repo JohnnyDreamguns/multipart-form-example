@@ -6,14 +6,14 @@ interface Props {
   fields: { [fieldName: string]: string };
   className?: string;
   onChange: (e: SyntheticEvent) => void;
-  nextStep: () => void;
+  onSubmit: (e: any) => void;
 }
 
-const LoginDetails = ({ fields, onChange, nextStep, ...props }: Props) => (
+const LoginDetails = ({ fields, onChange, onSubmit, ...props }: Props) => (
   <div {...props}>
     <h1 className="mb-3">Login details</h1>
 
-    <form onSubmit={nextStep} className="flex flex-col max-w-md">
+    <form onSubmit={onSubmit} className="flex flex-col max-w-md">
       <Label htmlFor="email">Email address</Label>
       <FormField
         type="text"

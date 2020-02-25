@@ -1,29 +1,40 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useCallback } from 'react';
-import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+import produce from 'immer';
+import { useCallback, useReducer } from 'react';
+import { useDispatch } from 'react-redux';
 import { setForm, setFormField } from '../store/form/actions';
-import { FormState, Fields } from '../store/form/types';
-import { ObjStringVals } from '../types';
 
-const useForm = (formName: string, initialFieldValues: Fields) => {
-  const dispatch = useDispatch();
+const useForm = (formName: string, initialFieldValues: any) => {
+  const reduxDispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(setForm({ formName, initialFieldValues }));
-  }, [dispatch, formName]);
+  const reducer = produce((draft, action: any) => {
+    switch (action.type) {
+      case 'setField':
+        draft[action.payload.field] = action.payload.value;
+        break;
+      default:
+        return draft;
+    }
+  });
 
-  const fieldValues: ObjStringVals = useSelector(
-    (state: FormState) => state.form[formName] || {},
-    shallowEqual
-  );
+  const [fieldValues, dispatch] = useReducer(reducer, initialFieldValues);
 
   const onChange = useCallback(
     e => {
-      const payload = { formName, field: e.target.name, value: e.target.value };
-      dispatch(setFormField(payload));
+      const payload = { field: e.target.name, value: e.target.value };
+      dispatch({ type: 'setField', payload });
     },
-    [formName, dispatch]
+    [dispatch]
   );
+
+  const saveToStore = useCallback(() => {
+    reduxDispatch(setForm({ formName, initialFieldValues }));
+
+    Object.keys(fieldValues).forEach(key => {
+      const payload = { formName, field: key, value: fieldValues[key] };
+      reduxDispatch(setFormField(payload));
+    });
+  }, [reduxDispatch, setForm, formName, initialFieldValues, fieldValues]);
 
   const fields = {
     ...initialFieldValues,
@@ -32,7 +43,8 @@ const useForm = (formName: string, initialFieldValues: Fields) => {
 
   const exported = {
     fields,
-    onChange
+    onChange,
+    saveToStore
   };
 
   return exported;

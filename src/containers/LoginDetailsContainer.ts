@@ -10,16 +10,22 @@ interface Props {
 const LoginDetailsContainer = ({ className }: Props) => {
   const { nextStep } = useGlobal();
 
-  const { fields, onChange } = useForm('loginDetails', {
+  const { fields, onChange, saveToStore } = useForm('loginDetails', {
     email: '',
     password: ''
   });
+
+  const onSubmit = (e: any) => {
+    saveToStore();
+    nextStep();
+    e.preventDefault();
+  };
 
   const props = {
     fields,
     onChange,
     className,
-    nextStep
+    onSubmit
   };
 
   return React.createElement(LoginDetails, props);
